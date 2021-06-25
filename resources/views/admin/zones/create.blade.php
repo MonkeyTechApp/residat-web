@@ -1,11 +1,11 @@
 @extends('admin.layouts.admin')
 
-@section('title',__('views.admin.zones.edit.title', ['name' => $zone->name]) )
+@section('title',__('views.admin.zones.create') )
 
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            {{ Form::open(['route'=>['admin.zones.update', $zone->id],'method' => 'put','class'=>'form-horizontal  form-label-left']) }}
+            {{ Form::open(['route'=>['admin.zones.post'],'method' => 'post','class'=>'form-horizontal  form-label-left']) }}
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name" >
@@ -14,7 +14,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="name" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('name')) parsley-error @endif"
-                               name="name" value="{{ $zone->name }}" required>
+                               name="name" value="" required>
                         @if($errors->has('name'))
                             <ul class="parsley-errors-list filled">
                                 @foreach($errors->get('name') as $error)
@@ -32,7 +32,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="name" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('name')) parsley-error @endif"
-                               name="tag" value="{{ $zone->tag_name }}" required>
+                               name="tag_name" value="" required>
                         @if($errors->has('name'))
                             <ul class="parsley-errors-list filled">
                                 @foreach($errors->get('name') as $error)
@@ -49,7 +49,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="name" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('name')) parsley-error @endif"
-                               name="level" value="{{ $zone->level }}" required>
+                               name="level" value="" required>
                         @if($errors->has('name'))
                             <ul class="parsley-errors-list filled">
                                 @foreach($errors->get('name') as $error)
@@ -66,14 +66,14 @@
                     </label>
 
                     <div class="col-md-6 col-sm-6">
-                        <textarea required="required" name='svg'>{!! $zone->svg !!}</textarea></div>
+                        <textarea required="required" name='svg'></textarea></div>
                 </div>
                 <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 "> {{ __('views.admin.parent') }}</label>
                     <div class="col-md-6 col-sm-6 col-xs-12 ">
                         <select name="parent" class="select2_group form-control">
                             @foreach($mothers as $mother)
-                                <option value="{{$mother->id}}">{{$mother->name}}</option>
+                                <option value="{{$mother->id}}">{{$mother->name}} - Level {{$mother->level}} </option>
                             @endforeach
                         </select>
                     </div>
@@ -87,7 +87,7 @@
                             <div class="checkbox">
                                 <label>
                                     <input id="active" type="checkbox" class="@if($errors->has('active')) parsley-error @endif"
-                                           name="active" @if($zone->active) checked="checked" @endif value="1">
+                                           name="active" value="1">
                                     @if($errors->has('active'))
                                         <ul class="parsley-errors-list filled">
                                             @foreach($errors->get('active') as $error)

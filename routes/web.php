@@ -86,11 +86,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Zones
     Route::get('zones', 'ZoneController@index')->name('zones');
+    Route::get('zones/create', 'ZoneController@create')->name('zones.create');
     Route::get('zones/restore', 'ZoneController@restore')->name('zones.restore');
     Route::get('zones/{id}/restore', 'ZoneController@restoreUser')->name('zones.restore-country');
     Route::get('zones/{zone}', 'ZoneController@show')->name('zones.show');
     Route::get('zones/{zone}/edit', 'ZoneController@edit')->name('zones.edit');
     Route::put('zones/{zone}', 'ZoneController@update')->name('zones.update');
+    Route::post('zones/create', 'ZoneController@store')->name('zones.post');
     Route::any('zones/{id}/destroy', 'ZoneController@destroy')->name('zones.destroy');
 });
 

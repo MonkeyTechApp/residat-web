@@ -13,12 +13,9 @@
             </tr>
             <tr>
                 <th>{{ __('views.admin.zones.show.table_header_1') }}</th>
-                <td>{{ $zone->mother->name ?? 'No parent'}}</td>
+                <td>@if($zone->mother != null ){{ $zone->mother->name ?? 'No parent'}} @else {{ __('views.admin.no_parent') }} @endif</td>
             </tr>
-            <tr>
-                <th>{{ __('views.admin.zones.show.table_header_2') }}</th>
-                <td>{{ $zone->region->name }}</td>
-            </tr>
+
             <tr>
                 <th>{{ __('views.admin.zones.show.table_header_3') }}</th>
                 <td>
@@ -45,7 +42,7 @@
     </div>
 
     @section('title', __('views.admin.zones.show.sub_zone_of', ['name' => $zone->name]))
-<h4>{{ __('views.admin.zones.show.sub_zone_of', ['name' => $zone->name])}}</h4>
+        <h4>{{ __('views.admin.zones.show.sub_zone_of', ['name' => $zone->name])}}</h4>
     <div class="row">
         <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
                width="100%">
@@ -61,30 +58,30 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($zone->children as $zone)
+            @foreach($zone->children as $child)
                 <tr>
-                    <td>{{ $zone->name }}</td>
-                    <td>{{ $zone->mother->name ?? 'No parent'}}</td>
-                    <td>{{ $zone->region->name ?? 'Unknown' }}</td>
+                    <td>{{ $child->name }}</td>
+                    <td>{{ $child->mother->name ?? 'No parent'}}</td>
+                    <td>{{ $child->region->name ?? 'Unknown' }}</td>
                     <td>
-                        @if($zone->active)
+                        @if($child->active)
                             <span class="label label-primary">{{ __('views.admin.zones.index.active') }}</span>
                         @else
                             <span class="label label-danger">{{ __('views.admin.zones.index.inactive') }}</span>
                         @endif
                     </td>
 
-                    <td>{{ $zone->created_at }}</td>
-                    <td>{{ $zone->updated_at }}</td>
+                    <td>{{ $child->created_at }}</td>
+                    <td>{{ $child->updated_at }}</td>
                     <td>
-                        <a class="btn btn-xs btn-primary" href="{{ route('admin.zones.show', [$zone->id]) }}" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.zones.index.show') }}">
+                        <a class="btn btn-xs btn-primary" href="{{ route('admin.zones.show', [$child->id]) }}" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.zones.index.show') }}">
                             <i class="fa fa-eye"></i>
                         </a>
-                        <a class="btn btn-xs btn-info" href="{{ route('admin.zones.edit', [$zone->id]) }}" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.zones.index.edit') }}">
+                        <a class="btn btn-xs btn-info" href="{{ route('admin.zones.edit', [$child->id]) }}" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.zones.index.edit') }}">
                             <i class="fa fa-pencil"></i>
                         </a>
                         @if(\Illuminate\Support\Facades\Auth::user()->hasRole('administrator'))
-                            <a href="{{ route('admin.zones.destroy', [$zone->id]) }}" class="btn btn-xs btn-danger user_destroy" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.zones.index.delete') }}">
+                            <a href="{{ route('admin.zones.destroy', [$child->id]) }}" class="btn btn-xs btn-danger user_destroy" data-toggle="tooltip" data-placement="top" data-title="{{ __('views.admin.zones.index.delete') }}">
                                 <i class="fa fa-trash"></i>
                             </a>
                         @endif
@@ -93,6 +90,8 @@
             @endforeach
             </tbody>
         </table>
+        <h4>{{ __('views.admin.map', ['name' => $zone->name])}}</h4>
+        {!! $zone->svg !!}
 {{--        <div class="pull-right">--}}
 {{--            {{ $zone->children->links() }}--}}
 {{--        </div>--}}

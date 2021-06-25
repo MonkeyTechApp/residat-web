@@ -1,9 +1,13 @@
 <?php $__env->startSection('title', __('views.admin.zones.index.title')); ?>
 
 <?php $__env->startSection('content'); ?>
+    <div class="pull-right">
+        <a href="<?php echo e(route('admin.zones.create')); ?>">
+            <button type="button" class="btn btn-secondary btn-sm fa-plus-circle">Create Zone</button> </a>
+    </div>
+
     <div class="row">
-        <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-               width="100%">
+        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
             <thead>
             <tr>
                 <th><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('email', __('views.admin.zones.index.table_header_0'),['page' => $zones->currentPage()]));?></th>
@@ -12,6 +16,8 @@
                 <th><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('active', __('views.admin.zones.index.table_header_3'),['page' => $zones->currentPage()]));?></th>
                 <th><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('active', __('views.admin.zones.index.table_header_4'),['page' => $zones->currentPage()]));?></th>
                 <th><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('active', __('views.admin.zones.index.table_header_5'),['page' => $zones->currentPage()]));?></th>
+                <th><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('active', __('views.admin.zones.index.table_header_6'),['page' => $zones->currentPage()]));?></th>
+                <th><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('active', __('views.admin.zones.index.table_header_7'),['page' => $zones->currentPage()]));?></th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -20,7 +26,14 @@
                 <tr>
                     <td><?php echo e($zone->name); ?></td>
                     <td><?php echo e($zone->mother->name ?? 'No parent'); ?></td>
-                    <td><?php echo e($zone->region->name ?? 'Unknown'); ?></td>
+                    <td>
+                        <?php if($zone->svg != null): ?>
+                            <span class="label label-primary"><?php echo e(__('views.admin.zones.index.active')); ?></span>
+                        <?php else: ?>
+                            <span class="label label-warning"><?php echo e(__('views.admin.zones.index.inactive')); ?></span>
+                        <?php endif; ?>
+                    <td><?php echo e($zone->image ?? 'No Image'); ?></td>
+                    <td><?php echo e($zone->level ?? 'Unknown'); ?></td>
                     <td>
                         <?php if($zone->active): ?>
                             <span class="label label-primary"><?php echo e(__('views.admin.zones.index.active')); ?></span>

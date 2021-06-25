@@ -231,10 +231,12 @@
     "views.admin.zones.index.title-restore": "Restore Zones",
     "views.admin.zones.index.table_header_0": "Name",
     "views.admin.zones.index.table_header_1": "Parent",
-    "views.admin.zones.index.table_header_2": "Region",
-    "views.admin.zones.index.table_header_3": "Active",
-    "views.admin.zones.index.table_header_4": "Created",
-    "views.admin.zones.index.table_header_5": "Last updated",
+    "views.admin.zones.index.table_header_2": "Map",
+    "views.admin.zones.index.table_header_3": "Parent Image",
+    "views.admin.zones.index.table_header_4": "Level",
+    "views.admin.zones.index.table_header_5": "Active",
+    "views.admin.zones.index.table_header_6": "Created",
+    "views.admin.zones.index.table_header_7": "Last updated",
     "views.admin.zones.index.active": "Active",
     "views.admin.zones.index.inactive": "Inactive",
     "views.admin.zones.index.confirmed": "Confirmed",
@@ -271,5 +273,14 @@
     "views.membership.table_header_5": "Expires",
     "views.membership.table_header_6": "Actions",
     "views.membership.valid": "valid",
-    "views.membership.not_valid": "not valid"
+    "views.membership.not_valid": "not valid",
+
+    "******************************************************************************************" : "Global variables",
+        "views.admin.no_parent": "No parent",
+        "views.admin.inactive": "Inactive",
+        "views.admin.map": "Map",
+        "views.admin.tag-name": "Tag Name",
+        "views.admin.level": "Level",
+        "views.admin.zones.create": "Create Zone",
+        "views.admin.parent": "Parent"
     }

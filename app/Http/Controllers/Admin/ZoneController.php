@@ -72,22 +72,43 @@ class ZoneController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $datas = Zone::all();
+        return view('admin.zones.create', [
+             'mothers' => $datas]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         //
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'active' => 'sometimes|boolean',
+        ]);
+
+        if ($validator->fails()) return redirect()->back()->withErrors($validator->errors());
+        $zone = new Zone();
+
+        $zone->name = $request->get('name');
+        $zone->tag_name = $request->get('tag_name');
+        $zone->active = $request->get('active', 0);
+        $zone->svg = $request->get('svg');
+        $zone->level = $request->get('level');
+        $zone->mother()->associate(Zone::where('id',$request->get('parent'))->first());
+
+        if($zone->save()){
+            return redirect()->route('admin.zones')->withFlashSuccess('Zone '.$zone->name.' Updated Successfully!');
+        }
     }
 
     /**
@@ -110,8 +131,9 @@ class ZoneController extends Controller
     public function edit(Zone $zone)
     {
         $data = Zone::with('children', 'region.zones', 'mother')->where('id',$zone->id)->first();
-        return view('admin.zones.edit', ['zone' => $data, 'countries' => Country::with('regions')->get()
-            , 'regions' => Region::with('zones')->get()]);
+        $mothers = Zone::whereLevel(($zone->level - 1))->get();
+        return view('admin.zones.edit', ['zone' => $data
+            , 'mothers' => $mothers]);
     }
 
     /**
@@ -132,12 +154,13 @@ class ZoneController extends Controller
 
         $zone->name = $request->get('name');
         $zone->active = $request->get('active', 0);
-        $zone->region()->associate(Region::where('id',$request->get('region'))->first());
+        $zone->svg = $request->get('svg');
+        $zone->level = $request->get('level');
+        $zone->mother()->associate(Zone::where('id',$request->get('parent'))->first());
 
-        $zone->save();
-
-
-        return redirect()->intended(route('admin.zones'));
+        if($zone->save()){
+            return redirect()->route('admin.zones')->withFlashSuccess('Zone '.$zone->name.' Updated Successfully!');
+        }
     }
 
     /**

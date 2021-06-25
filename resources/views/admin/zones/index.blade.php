@@ -3,9 +3,13 @@
 @section('title', __('views.admin.zones.index.title'))
 
 @section('content')
+    <div class="pull-right">
+        <a href="{{ route('admin.zones.create') }}">
+            <button type="button" class="btn btn-secondary btn-sm fa-plus-circle">Create Zone</button> </a>
+    </div>
+
     <div class="row">
-        <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-               width="100%">
+        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
             <thead>
             <tr>
                 <th>@sortablelink('email', __('views.admin.zones.index.table_header_0'),['page' => $zones->currentPage()])</th>
@@ -14,6 +18,8 @@
                 <th>@sortablelink('active', __('views.admin.zones.index.table_header_3'),['page' => $zones->currentPage()])</th>
                 <th>@sortablelink('active', __('views.admin.zones.index.table_header_4'),['page' => $zones->currentPage()])</th>
                 <th>@sortablelink('active', __('views.admin.zones.index.table_header_5'),['page' => $zones->currentPage()])</th>
+                <th>@sortablelink('active', __('views.admin.zones.index.table_header_6'),['page' => $zones->currentPage()])</th>
+                <th>@sortablelink('active', __('views.admin.zones.index.table_header_7'),['page' => $zones->currentPage()])</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -22,7 +28,14 @@
                 <tr>
                     <td>{{ $zone->name }}</td>
                     <td>{{ $zone->mother->name ?? 'No parent'}}</td>
-                    <td>{{ $zone->region->name ?? 'Unknown' }}</td>
+                    <td>
+                        @if($zone->svg != null)
+                            <span class="label label-primary">{{ __('views.admin.zones.index.active') }}</span>
+                        @else
+                            <span class="label label-warning">{{ __('views.admin.zones.index.inactive') }}</span>
+                        @endif
+                    <td>{{ $zone->image ?? 'No Image' }}</td>
+                    <td>{{ $zone->level ?? 'Unknown' }}</td>
                     <td>
                         @if($zone->active)
                             <span class="label label-primary">{{ __('views.admin.zones.index.active') }}</span>

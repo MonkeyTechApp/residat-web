@@ -21,8 +21,10 @@ use Kyslik\ColumnSortable\Sortable;
  *
  * @property string $id
  * @property string $name
- * @property int $parent_id
- * @property int $region_id
+ * @property integer $level
+ * @property string $svg
+ * @property integer $parent_id
+ * @property integer $region_id
  * @property bool $active
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -35,6 +37,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Auth\User\User whereRegionId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Auth\User\User whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Auth\User\User whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Auth\User\User whereLevel($value)
  * @mixin \Eloquent
  */
 class Zone extends Model

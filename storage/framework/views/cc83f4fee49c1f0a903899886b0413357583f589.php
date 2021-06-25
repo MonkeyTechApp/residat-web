@@ -1,9 +1,9 @@
-<?php $__env->startSection('title',__('views.admin.zones.edit.title', ['name' => $zone->name]) ); ?>
+<?php $__env->startSection('title',__('views.admin.zones.create') ); ?>
 
 <?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <?php echo e(Form::open(['route'=>['admin.zones.update', $zone->id],'method' => 'put','class'=>'form-horizontal  form-label-left'])); ?>
+            <?php echo e(Form::open(['route'=>['admin.zones.post'],'method' => 'post','class'=>'form-horizontal  form-label-left'])); ?>
 
 
                 <div class="form-group">
@@ -14,7 +14,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="name" type="text" class="form-control col-md-7 col-xs-12 <?php if($errors->has('name')): ?> parsley-error <?php endif; ?>"
-                               name="name" value="<?php echo e($zone->name); ?>" required>
+                               name="name" value="" required>
                         <?php if($errors->has('name')): ?>
                             <ul class="parsley-errors-list filled">
                                 <?php $__currentLoopData = $errors->get('name'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -33,7 +33,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="name" type="text" class="form-control col-md-7 col-xs-12 <?php if($errors->has('name')): ?> parsley-error <?php endif; ?>"
-                               name="tag" value="<?php echo e($zone->tag_name); ?>" required>
+                               name="tag_name" value="" required>
                         <?php if($errors->has('name')): ?>
                             <ul class="parsley-errors-list filled">
                                 <?php $__currentLoopData = $errors->get('name'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -51,7 +51,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="name" type="text" class="form-control col-md-7 col-xs-12 <?php if($errors->has('name')): ?> parsley-error <?php endif; ?>"
-                               name="level" value="<?php echo e($zone->level); ?>" required>
+                               name="level" value="" required>
                         <?php if($errors->has('name')): ?>
                             <ul class="parsley-errors-list filled">
                                 <?php $__currentLoopData = $errors->get('name'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -68,14 +68,14 @@
                     </label>
 
                     <div class="col-md-6 col-sm-6">
-                        <textarea required="required" name='svg'><?php echo $zone->svg; ?></textarea></div>
+                        <textarea required="required" name='svg'></textarea></div>
                 </div>
                 <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 "> <?php echo e(__('views.admin.parent')); ?></label>
                     <div class="col-md-6 col-sm-6 col-xs-12 ">
                         <select name="parent" class="select2_group form-control">
                             <?php $__currentLoopData = $mothers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mother): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($mother->id); ?>"><?php echo e($mother->name); ?></option>
+                                <option value="<?php echo e($mother->id); ?>"><?php echo e($mother->name); ?> - Level <?php echo e($mother->level); ?> </option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
@@ -90,7 +90,7 @@
                             <div class="checkbox">
                                 <label>
                                     <input id="active" type="checkbox" class="<?php if($errors->has('active')): ?> parsley-error <?php endif; ?>"
-                                           name="active" <?php if($zone->active): ?> checked="checked" <?php endif; ?> value="1">
+                                           name="active" value="1">
                                     <?php if($errors->has('active')): ?>
                                         <ul class="parsley-errors-list filled">
                                             <?php $__currentLoopData = $errors->get('active'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -130,4 +130,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Feussom Ronald Jr\Documents\MONKEY TECH\GIS\Residat\web\resources\views/admin/zones/edit.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Feussom Ronald Jr\Documents\MONKEY TECH\GIS\Residat\web\resources\views/admin/zones/create.blade.php ENDPATH**/ ?>
